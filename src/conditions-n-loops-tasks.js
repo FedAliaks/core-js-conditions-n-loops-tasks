@@ -585,9 +585,18 @@ function getNearestBigger(number) {
     return number;
   }
 
-  const answer = arrNumber.slice(0, minIndex);
+  const answer = [];
 
-  const rest = arrNumber.slice(minIndex + 1);
+  for (let i = 0; i < minIndex; i += 1) {
+    answer.push(arrNumber[i]);
+  }
+
+  const rest = [];
+
+  for (let i = minIndex + 1; i < arrNumber.length; i += 1) {
+    rest.push(arrNumber[i]);
+  }
+
   const minRest = rest
     .filter((item) => item > minNumber)
     .sort((a, b) => a - b)[0];
@@ -602,11 +611,17 @@ function getNearestBigger(number) {
     }
   }
 
-  const mitRestFinal = [
-    ...rest.slice(0, deleteIndex),
-    ...rest.slice(deleteIndex + 1),
-    ...[minNumber],
-  ].sort((a, b) => a - b);
+  const arr1 = [];
+  for (let i = 0; i < deleteIndex; i += 1) {
+    arr1.push(rest[i]);
+  }
+
+  const arr2 = [];
+  for (let i = deleteIndex + 1; i < rest.length; i += 1) {
+    arr2.push(rest[i]);
+  }
+
+  const mitRestFinal = [...arr1, ...arr2, ...[minNumber]].sort((a, b) => a - b);
 
   return Number([...answer, ...mitRestFinal].join(''));
 }
